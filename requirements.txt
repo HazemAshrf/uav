@@ -1,0 +1,40 @@
+# Static Agent Dashboard Requirements
+
+# Core LangGraph and LangChain
+langgraph==0.0.69
+langchain==0.1.0
+langchain-openai==0.0.5
+langchain-core==0.1.12
+
+# Streamlit for UI
+streamlit==1.29.0
+
+# Data handling
+pandas==2.1.4
+numpy==1.24.3
+
+# Pydantic for data models
+pydantic==2.5.2
+
+# Async support
+asyncio
+
+# Time and date utilities
+python-dateutil==2.8.2
+
+# JSON handling
+orjson==3.9.10
+
+# Environment variables
+python-dotenv==1.0.0
+
+# HTTP requests (if needed)
+requests==2.31.0
+
+# Development and testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+
+# Browser automation testing
+selenium==4.15.2
+webdriver-manager==4.0.1
