@@ -10,27 +10,16 @@ import asyncio
 
 # Add backend to path
 backend_path = Path(__file__).parent.parent.parent / "backend"
-<<<<<<< HEAD
-sys.path.append(str(backend_path))
-
-from langgraph.state import StaticGlobalState
-from langgraph.workflow import run_static_workflow
-=======
 sys.path.insert(0, str(backend_path))
 
 from langgraph.state import StaticGlobalState
 from langgraph.workflow import run_static_workflow
 from cross_platform_utils import CrossPlatformEmoji
->>>>>>> ae778f3 (second commit)
 
 # Page configuration
 st.set_page_config(
     page_title="Workflow Status - Static Agent Dashboard",
-<<<<<<< HEAD
-    page_icon="📊",
-=======
     page_icon=CrossPlatformEmoji.get("📊"),
->>>>>>> ae778f3 (second commit)
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -38,11 +27,7 @@ st.set_page_config(
 # Load custom CSS
 css_file = Path(__file__).parent.parent / "assets" / "styles.css"
 if css_file.exists():
-<<<<<<< HEAD
-    with open(css_file) as f:
-=======
     with open(css_file, encoding='utf-8') as f:
->>>>>>> ae778f3 (second commit)
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Helper functions
@@ -492,11 +477,7 @@ if st.session_state.get('workflow_waiting_for_user', False):
         )
         
         new_max = current_max + additional_iterations
-<<<<<<< HEAD
-        st.info(f"📊 {current_iter}/{current_max} → {current_iter}/{new_max} (added {additional_iterations})")
-=======
         st.info(f"📊 {current_iter}/{current_max} -> {current_iter}/{new_max} (added {additional_iterations})")
->>>>>>> ae778f3 (second commit)
         
         if st.button("🔄 Continue Workflow", key="continue_from_waiting", type="primary"):
             # Write user decision to progress file for workflow to pick up

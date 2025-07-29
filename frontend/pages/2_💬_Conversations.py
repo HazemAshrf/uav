@@ -9,25 +9,15 @@ import time
 
 # Add backend to path
 backend_path = Path(__file__).parent.parent.parent / "backend"
-<<<<<<< HEAD
-sys.path.append(str(backend_path))
-
-from langgraph.state import StaticGlobalState
-=======
 sys.path.insert(0, str(backend_path))
 
 from langgraph.state import StaticGlobalState
 from cross_platform_utils import CrossPlatformEmoji
->>>>>>> ae778f3 (second commit)
 
 # Page configuration
 st.set_page_config(
     page_title="Conversations - Static Agent Dashboard",
-<<<<<<< HEAD
-    page_icon="💬",
-=======
     page_icon=CrossPlatformEmoji.get("💬"),
->>>>>>> ae778f3 (second commit)
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -35,11 +25,7 @@ st.set_page_config(
 # Load custom CSS
 css_file = Path(__file__).parent.parent / "assets" / "styles.css"
 if css_file.exists():
-<<<<<<< HEAD
-    with open(css_file) as f:
-=======
     with open(css_file, encoding='utf-8') as f:
->>>>>>> ae778f3 (second commit)
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Add ChatAI-style CSS
@@ -413,11 +399,7 @@ else:
             latest_preview = f" | Live: {len(live_chat_data['messages'])} msgs"
             
             with st.expander(
-<<<<<<< HEAD
-                f"💬 {' ↔️ '.join(display_participants)} ({summary['message_count']} messages){latest_preview}",
-=======
                 f"{CrossPlatformEmoji.get('💬')} {(' ' + CrossPlatformEmoji.get('↔️') + ' ').join(display_participants)} ({summary['message_count']} messages){latest_preview}",
->>>>>>> ae778f3 (second commit)
                 expanded=False
             ):
                 st.success("🔄 **Live conversation data** - Real-time messages")
@@ -496,11 +478,7 @@ else:
             latest_preview = f" | {summary.get('chat_type', 'conversation').replace('_', ' ').title()}"
             
             with st.expander(
-<<<<<<< HEAD
-                f"💬 {' ↔️ '.join(display_participants)} ({summary['message_count']} messages){latest_preview}",
-=======
                 f"{CrossPlatformEmoji.get('💬')} {(' ' + CrossPlatformEmoji.get('↔️') + ' ').join(display_participants)} ({summary['message_count']} messages){latest_preview}",
->>>>>>> ae778f3 (second commit)
                 expanded=False
             ):
                 st.info("🔄 **Live conversation data** - Full message history available when workflow completes")
@@ -523,11 +501,7 @@ else:
                 latest_preview = f" | Latest: {preview_text}"
             
             with st.expander(
-<<<<<<< HEAD
-                f"💬 {' ↔️ '.join(display_participants)} ({summary['message_count']} messages){latest_preview}",
-=======
                 f"{CrossPlatformEmoji.get('💬')} {(' ' + CrossPlatformEmoji.get('↔️') + ' ').join(display_participants)} ({summary['message_count']} messages){latest_preview}",
->>>>>>> ae778f3 (second commit)
                 expanded=False  # All conversations collapsed by default
             ):
                 # Conversation metadata

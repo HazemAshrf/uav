@@ -8,10 +8,7 @@ import tempfile
 from typing import Dict, List, Any, Optional, Callable
 from pydantic import BaseModel, Field, ConfigDict
 from dataclasses import dataclass
-<<<<<<< HEAD
-=======
 from pathlib import Path
->>>>>>> ae778f3 (second commit)
 
 # Import agent output models
 import sys
@@ -22,14 +19,10 @@ from pydantic_models import (
     StructuresOutput, ManufacturingOutput, CoordinatorOutput
 )
 
-<<<<<<< HEAD
-=======
 # Import cross-platform utilities
 from cross_platform_utils import (
     CrossPlatformFileOperations, CrossPlatformPaths, CrossPlatformEmoji
 )
-
->>>>>>> ae778f3 (second commit)
 
 @dataclass
 class ChatMessage:
@@ -513,24 +506,12 @@ class StaticGlobalState(BaseModel):
         }
     
     # File-based progress tracking for background threads
-<<<<<<< HEAD
-    def get_progress_file_path(self) -> str:
-        """Get the file path for progress tracking."""
-        return os.path.join(tempfile.gettempdir(), f"workflow_progress_{self.thread_id}.json")
-    
-    def write_progress_file(self):
-        """Write current progress to file for UI polling with ALL metrics."""
-        import fcntl
-        import tempfile
-        
-=======
     def get_progress_file_path(self) -> Path:
         """Get the file path for progress tracking."""
         return CrossPlatformPaths.get_temp_file_path(f"workflow_progress_{self.thread_id}.json")
     
     def write_progress_file(self):
         """Write current progress to file for UI polling with ALL metrics."""
->>>>>>> ae778f3 (second commit)
         try:
             # Get comprehensive progress data
             progress_data = self.get_progress_snapshot()
@@ -544,86 +525,6 @@ class StaticGlobalState(BaseModel):
             
             file_path = self.get_progress_file_path()
             
-<<<<<<< HEAD
-            # Use atomic write to prevent corruption
-            temp_path = file_path + '.tmp'
-            with open(temp_path, 'w') as f:
-                # Lock the file to prevent concurrent writes
-                try:
-                    fcntl.flock(f.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-                    json.dump(progress_data, f, indent=2)
-                    f.flush()
-                    os.fsync(f.fileno())  # Force write to disk
-                except BlockingIOError:
-                    # If we can't get the lock, skip this write to avoid corruption
-                    print(f"⚠️ Progress file write skipped (locked by another process)")
-                    return
-                finally:
-                    try:
-                        fcntl.flock(f.fileno(), fcntl.LOCK_UN)
-                    except:
-                        pass
-            
-            # Atomic move to replace the original file
-            if os.path.exists(temp_path):
-                os.replace(temp_path, file_path)
-                
-        except Exception as e:
-            print(f"❌ Error writing progress file: {e}")
-            # Cleanup temp file if it exists
-            temp_path = self.get_progress_file_path() + '.tmp'
-            if os.path.exists(temp_path):
-                try:
-                    os.remove(temp_path)
-                except:
-                    pass
-    
-    def read_progress_file(self) -> Dict[str, Any]:
-        """Read progress from file with corruption handling."""
-        import fcntl
-        
-        try:
-            file_path = self.get_progress_file_path()
-            if not os.path.exists(file_path):
-                return {}
-            
-            # Try to read with file locking
-            with open(file_path, 'r') as f:
-                try:
-                    fcntl.flock(f.fileno(), fcntl.LOCK_SH | fcntl.LOCK_NB)
-                    content = f.read()
-                    if not content.strip():
-                        return {}
-                    return json.loads(content)
-                except BlockingIOError:
-                    # File is locked, return empty to avoid blocking UI
-                    print(f"⚠️ Progress file read skipped (locked by another process)")
-                    return {}
-                except json.JSONDecodeError as je:
-                    print(f"⚠️ Progress file corrupted, attempting recovery: {je}")
-                    # Try to recover by reading backup or returning empty
-                    return {}
-                finally:
-                    try:
-                        fcntl.flock(f.fileno(), fcntl.LOCK_UN)
-                    except:
-                        pass
-                        
-        except Exception as e:
-            print(f"❌ Error reading progress file: {e}")
-            # If file is corrupted, try to clean it up
-            try:
-                file_path = self.get_progress_file_path()
-                if os.path.exists(file_path):
-                    # Check if file is empty or corrupted
-                    with open(file_path, 'r') as f:
-                        content = f.read()
-                        if len(content) > 10000:  # File too large, might be corrupted
-                            print(f"⚠️ Progress file too large ({len(content)} chars), cleaning up")
-                            os.remove(file_path)
-            except:
-                pass
-=======
             # Use cross-platform file operations
             success = CrossPlatformFileOperations.safe_file_lock_write(file_path, progress_data)
             if not success:
@@ -646,7 +547,6 @@ class StaticGlobalState(BaseModel):
                         
         except Exception as e:
             print(f"{CrossPlatformEmoji.get('❌')} Error reading progress file: {e}")
->>>>>>> ae778f3 (second commit)
             return {}
     
     def sync_complete_data_to_state(self, target_state: 'StaticGlobalState'):
