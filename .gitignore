@@ -1,1 +1,6 @@
 .env
+<<<<<<< HEAD
+=======
+CLAUDE.md
+claude_opus_suggestions.txt
+>>>>>>> ae778f3 (second commit)

@@ -8,15 +8,27 @@ from pathlib import Path
 
 # Add backend to path
 backend_path = Path(__file__).parent.parent.parent / "backend"
+<<<<<<< HEAD
 sys.path.append(str(backend_path))
 
 from langgraph.state import StaticGlobalState
 from config import MODEL_NAME
+=======
+sys.path.insert(0, str(backend_path))
+
+from langgraph.state import StaticGlobalState
+from config import MODEL_NAME
+from cross_platform_utils import CrossPlatformEmoji
+>>>>>>> ae778f3 (second commit)
 
 # Page configuration
 st.set_page_config(
     page_title="Agent Details - Static Agent Dashboard",
+<<<<<<< HEAD
     page_icon="🤖",
+=======
+    page_icon=CrossPlatformEmoji.get("🤖"),
+>>>>>>> ae778f3 (second commit)
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -24,7 +36,11 @@ st.set_page_config(
 # Load custom CSS
 css_file = Path(__file__).parent.parent / "assets" / "styles.css"
 if css_file.exists():
+<<<<<<< HEAD
     with open(css_file) as f:
+=======
+    with open(css_file, encoding='utf-8') as f:
+>>>>>>> ae778f3 (second commit)
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Header

@@ -6,6 +6,7 @@ from typing import Literal, List
 
 import sys
 import os
+<<<<<<< HEAD
 
 # Add paths for imports
 current_dir = os.path.dirname(__file__)
@@ -14,6 +15,17 @@ project_dir = os.path.dirname(backend_dir)
 
 sys.path.append(backend_dir)
 sys.path.append(project_dir)
+=======
+from pathlib import Path
+
+# Add paths for imports using pathlib
+current_dir = Path(__file__).parent
+backend_dir = current_dir.parent
+project_dir = backend_dir.parent
+
+sys.path.insert(0, str(backend_dir))
+sys.path.insert(0, str(project_dir))
+>>>>>>> ae778f3 (second commit)
 
 from langgraph.state import StaticGlobalState
 from agents.mission_planner import MissionPlannerAgent
